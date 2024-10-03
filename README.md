@@ -16,6 +16,6 @@ This command will generate the necessary file from the C code (using go generate
 
 ### Notes 
 
-I'm using the [cilium/ebpf](https://github.com/cilium/ebpf) library. Maybe I'll add some example with libbpf. The headers used are taken from the same library.
+I'm using the [cilium/ebpf](https://github.com/cilium/ebpf) library. Maybe I'll add some example with libbpf. The headers used are taken from the same library and I added some modifications.
 
 

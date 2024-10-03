@@ -90,6 +90,14 @@ typedef __u16 __sum16;
 
 #define ETH_P_IP 0x0800
 
+// start pino
+// https://elixir.bootlin.com/linux/v6.8/source/include/uapi/linux/in.h#L31
+#define ETH_P_IP6 0x86DD	
+#define IPPROTO_ICMP 1
+#define IPPROTO_TCP 6
+#define IPPROTO_UDP 17
+// end pino
+
 struct ethhdr {
 	unsigned char h_dest[6];
 	unsigned char h_source[6];
@@ -109,6 +117,71 @@ struct iphdr {
 	__be32 saddr;
 	__be32 daddr;
 };
+
+// start pino
+
+// pino
+
+struct in6_addr {
+	union {
+		__u8 u6_addr8[16];
+		__be16 u6_addr16[8];
+		__be32 u6_addr32[4];
+	} in6_u;
+};
+
+struct ipv6hdr {
+	__u8 priority: 4;
+	__u8 version: 4;
+	__u8 flow_lbl[3];
+	__be16 payload_len;
+	__u8 nexthdr;
+	__u8 hop_limit;
+	struct in6_addr saddr;
+	struct in6_addr daddr;
+};
+
+
+
+struct icmpv6_echo {
+	__be16 identifier;
+	__be16 sequence;
+};
+
+struct icmpv6_nd_advt {
+	__u32 reserved: 5;
+	__u32 override: 1;
+	__u32 solicited: 1;
+	__u32 router: 1;
+	__u32 reserved2: 24;
+};
+
+struct icmpv6_nd_ra {
+	__u8 hop_limit;
+	__u8 reserved: 3;
+	__u8 router_pref: 2;
+	__u8 home_agent: 1;
+	__u8 other: 1;
+	__u8 managed: 1;
+	__be16 rt_lifetime;
+};
+
+
+struct icmp6hdr {
+	__u8 icmp6_type;
+	__u8 icmp6_code;
+	__sum16 icmp6_cksum;
+	union {
+		__be32 un_data32[1];
+		__be16 un_data16[2];
+		__u8 un_data8[4];
+		struct icmpv6_echo u_echo;
+		struct icmpv6_nd_advt u_nd_advt;
+		struct icmpv6_nd_ra u_nd_ra;
+	} icmp6_dataun;
+};
+
+// end pino
 
 enum {
 	BPF_ANY     = 0,
