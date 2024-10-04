@@ -16,3 +16,10 @@ Notes:
 ### [Example 2](./example2/)
 
 This program is similar to example 1 but designed for IPv6. To achieve this, I added a struct for the IPv6 header in the `common.h` header file, along with the value for the IPv6 protocol found within the Ethernet header.
+
+### [Example 3](./example3/)
+
+This program is the same as example 2 but instead of using `common.h` it uses `vmlinux.h`. 
+
+To generate the `vmlinux.h` file you can use bpftool: `bpftool btf dump file /sys/kernel/btf/vmlinux form c >> vmlinux.h`.
+
