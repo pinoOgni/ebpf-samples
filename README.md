@@ -1,9 +1,10 @@
 # ebpf-samples
 
-This repo contains various examples to learn, explore, and experiment with eBPF.
+This repo contains various examples to learn, explore, and experiment with eBPF and not only. I would like to go deeper both in the controlplane and dataplane part.
 
-In this repo, I will add various eBPF examples. I'll start with simple ones and gradually add more complex examples. Some of the eBPF code may be adapted from well-known repositories.
+In this repo, I will add various eBPF examples starting with simple ones and gradually add more complex examples. 
 
+Some of the eBPF code may be adapted from well-known repositories.
 
 ### How to use it
 

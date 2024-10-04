@@ -4,13 +4,17 @@ This directory is used only for xdp examples.
 
 It is present a Makefile that can be used to generate, build or run the example.
 
+### Table Of Contents
+
+* [Example 1](#example-1)
+* [Example 2](#example-2)
+* [Example 3](#example-3)
+* [Example 4](#example-4)
+
 
 ### [Example 1](./example1/README.md)
 
-Notes:
-* This program basically is a xdp probe that counts the number of IPv4 packet. 
-* It checks if it is ethernet, ipv4 and not malformed. 
-* The controlplane reads the value from an array map.
+This program basically is a xdp probe that counts the number of IPv4 packet. It checks if it is ethernet, ipv4 and not malformed. The controlplane reads the value from an array map.
 
 
 ### [Example 2](./example2/)
