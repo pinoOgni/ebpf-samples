@@ -27,3 +27,21 @@ This program is the same as example 2 but instead of using `common.h` it uses `v
 
 To generate the `vmlinux.h` file you can use bpftool: `bpftool btf dump file /sys/kernel/btf/vmlinux form c >> vmlinux.h`.
 
+### [Example 4](./example4/)
+
+This program counts the IPv4 packets for TCP, UDP, ICMP, and Other protocols. Here *Other* refers other protocols, such as SCTP.
+
+The map used is a hash map with 4 keys, representing the protocols: TCP, UDP, ICMP, Other.
+
+The output will be something like that:
+```
+2024/10/05 11:33:21 Map contents:
+        ICMP => 4
+        Other => 130
+        UDP => 8
+```
+
+Note: you can use iperf3 to generate SCTP traffic. Iperf3 server: `iperf3 -s` and iperf3 client `iperf3 -c 127.0.0.1 --sctp`.
+
+
+
