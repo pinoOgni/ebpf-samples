@@ -45,3 +45,28 @@ Note: you can use iperf3 to generate SCTP traffic. Iperf3 server: `iperf3 -s` an
 
 
 
+### [Example 5](./example5/)
+
+This example is the same as exanole 1 but allows the user to select an interface. So only the control plane part has changed.
+
+
+
+### [Example 6](./example6/)
+
+In this example I'm using the `bpf_redirect` helper to redirect traffic to another interface. To test it we can do like that:
+* We create a veth pair and set both peers up:
+  ```
+  sudo ip link add veth0 type veth peer name veth1
+  sudo ip link set dev veth0 up
+  sudo ip link set dev veth1 up
+  ```
+* Before compiling the XDP program, we need to determine the `ifindex` of the interface to which traffic will be redirected, i.e., `loopback -> veth0 <==> veth1`. We retrieve the `ifindex` (using `ip link`) and set this value in the `xdp.c` code as the `if_index`.
+* We compile the binary using the provided Makefile.
+* We use the command `sudo ./example6 lo`, which attaches the XDP program to the loopback interface of the default network namespace.
+* Now, if we execute `ping 127.0.0.1`, all traffic to the loopback interface will be redirected to `veth0`. We can see the redirected traffic by running tcpdump on the `veth1` peer: `sudo tcpdump -i veth1` 
+
+
+Notes:
+* From the `bpf_helpers` documentation on `bpf_redirect`: Currently, XDP only supports redirection to the egress interface, and accepts no flag at all. The same effect can also be attained with the more generic bpf_redirect_map(), which uses a BPF map to store the redirect target instead of providing it directly to the helper. 
+* To understand why we need to use `return bpf_redirect(...)`, refer to [this documentation](https://www.kernel.org/doc/html/latest/bpf/redirect.html). Indeed if we call `bpf_redirect(...)` and then return `XDP_PASS`, it will not work as expected. Try it!
+* In the next example, we will see how to retrieve the `ifindex` from a map instead of using a hardcoded value.
