@@ -10,6 +10,9 @@ It is present a Makefile that can be used to generate, build or run the example.
 * [Example 2](#example-2)
 * [Example 3](#example-3)
 * [Example 4](#example-4)
+* [Example 5](#example-5)
+* [Example 6](#example-6)
+* [Example 6_2](#example-6_2)
 
 
 ### [Example 1](./example1/README.md)
@@ -70,3 +73,31 @@ Notes:
 * From the `bpf_helpers` documentation on `bpf_redirect`: Currently, XDP only supports redirection to the egress interface, and accepts no flag at all. The same effect can also be attained with the more generic bpf_redirect_map(), which uses a BPF map to store the redirect target instead of providing it directly to the helper. 
 * To understand why we need to use `return bpf_redirect(...)`, refer to [this documentation](https://www.kernel.org/doc/html/latest/bpf/redirect.html). Indeed if we call `bpf_redirect(...)` and then return `XDP_PASS`, it will not work as expected. Try it!
 * In the next example, we will see how to retrieve the `ifindex` from a map instead of using a hardcoded value.
+
+
+
+### [Example 6_2](./example6_2/)
+
+6_2. This example is the same as the previous one but the ifindex is written by the controlplane in a map that will be read by the dataplane. To use it you need to run the program like that: `sudo ./example6_2 <Attach-Interface> <Redirect-Interace>`, for example `sudo ./example6_2 lo veth0`, the program will be attached to the loopback interface and the traffic will be redirect to the veth0 interface.
+
+We can check the content of the BPF map `ifindex_map` using bpftool:
+```
+sudo bpftool map show
+...
+47: array  name ifindex_map  flags 0x0
+	key 4B  value 4B  max_entries 1  memlock 328B
+```
+Then:
+```
+sudo bpftool map dump id 47
+key: 00 00 00 00  value: 09 00 00 00
+```
+We can check that the value is present as ifindex with:
+```
+ip link
+...
+8: veth1@veth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+    link/ether 16:dd:a3:97:f1:bd brd ff:ff:ff:ff:ff:ff
+9: veth0@veth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
+    link/ether 7a:a1:2c:6e:67:67 brd ff:ff:ff:ff:ff:ff
+```
