@@ -13,6 +13,7 @@ It is present a Makefile that can be used to generate, build or run the example.
 * [Example 5](#example-5)
 * [Example 6](#example-6)
 * [Example 6_2](#example-6_2)
+* [Example 7](#example-7)
 
 
 ### [Example 1](./example1/README.md)
@@ -100,4 +101,47 @@ ip link
     link/ether 16:dd:a3:97:f1:bd brd ff:ff:ff:ff:ff:ff
 9: veth0@veth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
     link/ether 7a:a1:2c:6e:67:67 brd ff:ff:ff:ff:ff:ff
+```
+
+
+### [Example 7](./example7/)
+
+This example attaches an XDP program to all interfaces that are up and either Loopback or Veth. I'm using [netlink](https://github.com/vishvananda/netlink). It counts the packets on all interfaces. There is another map that counts the packets per interface, where the key is the interface number (which is converted to the interface name in the control plane), and the value is the packet count.
+
+To test it:
+* use the `testbed.sh` script to create an example testbed with a netns `ns1` and 2 veth pairs (2 peers inside ns1 and 2 peers in the default nents).
+* run the ebpf program in the ns1 namespace 
+```
+└─[$] <git:(main*)> sudo ip netns exec ns1 ./bin/example7
+Name: lo, Index: 1, Type: device
+Name: veth2, Index: 6, Type: veth
+Name: veth4, Index: 8, Type: veth
+2024/10/08 09:46:52 Counter map 0
+2024/10/08 09:46:52 Interface map:
+	lo => 0
+	veth2 => 0
+	veth4 => 0
+```
+* Then create traffic like `ping 10.0.0.2` (for veth2) and `ping 10.0.1.2` (for veth4). You will see something like that:
+```
+2024/10/08 09:46:55 Counter map 5
+2024/10/08 09:46:55 Interface map:
+	lo => 0
+	veth2 => 3
+	veth4 => 2
+2024/10/08 09:46:58 Counter map 11
+2024/10/08 09:46:58 Interface map:
+	lo => 0
+	veth2 => 6
+	veth4 => 5
+2024/10/08 09:47:01 Counter map 17
+2024/10/08 09:47:01 Interface map:
+	lo => 0
+	veth2 => 9
+	veth4 => 8
+2024/10/08 09:47:04 Counter map 23
+2024/10/08 09:47:04 Interface map:
+	lo => 0
+	veth2 => 12
+	veth4 => 11
 ```
