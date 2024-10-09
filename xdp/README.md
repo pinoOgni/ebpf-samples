@@ -2,8 +2,6 @@
 
 This directory is used only for xdp examples.
 
-It is present a Makefile that can be used to generate, build or run the example.
-
 ### Table Of Contents
 
 * [Example 1](#example-1)
