@@ -22,8 +22,6 @@ struct trace_event_raw_sys_enter {
 	char __data[0];
 };
 
-#define MAX_FILENAME_LEN 256
-
 struct bpf_map_def SEC("maps") exec_count_map = {
     .type = BPF_MAP_TYPE_HASH,
     .key_size = MAX_FILENAME_LEN,

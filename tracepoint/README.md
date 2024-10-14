@@ -9,6 +9,9 @@ This directory is used only for tracepoint examples.
 * [Example 3](#example-3)
 * [Example 4](#example-4)
 * [Example 5](#example-5)
+* [Example 6](#example-6)
+
+
 
 * [Useful stuff](#useful-stuff)
 
@@ -55,7 +58,9 @@ How to use it: create a new user (or use it if you already have a user with UID 
 
 Question: what happens if you type a command that does not exist, such as `ciao` (which means 'hello' in Italian)?
 
+### [Example 6](./example6/)
 
+This example tracks the total bytes allocated by the kernel's memory allocator by attaching an eBPF program to the `kmem/kmalloc`tracepoint.
 
 
 

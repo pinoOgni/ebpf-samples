@@ -2,6 +2,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -26,21 +27,20 @@ func main() {
 	}
 	defer objs.Close()
 
-	// Open a tracepoint and attach the pre-compiled program.
-	tp, err := link.Tracepoint("syscalls", "sys_enter_execve", objs.HandleExecve, nil)
+	// Open a tracepoint and attach the pre-compiled program for the tpKmalloc
+	tpKmalloc, err := link.Tracepoint("kmem", "kmalloc", objs.TrackKmalloc, nil)
 	if err != nil {
 		log.Fatalf("opening tracepoint: %s", err)
 	}
-	defer tp.Close()
-	// Periodically read the value from the counter map and log it.
+	defer tpKmalloc.Close()
+
 	ticker := time.NewTicker(1 * time.Second)
 	defer ticker.Stop()
+	var allocatedByte uint64
 	for range ticker.C {
-		var value uint64
-		if err := objs.Counter.Lookup(mapKey, &value); err != nil {
+		if err := objs.MemoryMap.Lookup(mapKey, &allocatedByte); err != nil {
 			log.Fatalf("reading map: %v", err)
 		}
-		log.Printf("Counter %d\n", value)
+		fmt.Printf("Allocated bytes: %d\n", allocatedByte)
 	}
-
 }

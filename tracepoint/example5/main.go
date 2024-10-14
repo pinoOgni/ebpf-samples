@@ -1,5 +1,4 @@
 // This program demonstrates attaching an eBPF program to a kernel tracepoint.
-// The idea and the C code is taken from https://blog.tofile.dev/2021/08/01/bad-bpf.html
 package main
 
 import (
@@ -33,7 +32,7 @@ func main() {
 	}
 	defer objs.Close()
 
-	// Open a tracepoint and attach the pre-compiled program for the sendto
+	// Open a tracepoint and attach the pre-compiled program to the sys_enter_execve
 	tp, err := link.Tracepoint("syscalls", "sys_enter_execve", objs.CountExecve, nil)
 	if err != nil {
 		log.Fatalf("opening tracepoint: %s", err)

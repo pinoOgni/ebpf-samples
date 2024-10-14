@@ -1,5 +1,4 @@
 // This program demonstrates attaching an eBPF program to a kernel tracepoint.
-// The idea and the C code is taken from https://blog.tofile.dev/2021/08/01/bad-bpf.html
 package main
 
 import (
