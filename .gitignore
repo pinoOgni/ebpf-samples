@@ -2,3 +2,7 @@ todo
 xdp/*/bin/
 tracepoint/*/bin/
 study
+tracepoint/*/test/*
+xdp/*/test/*
+!tracepoint/*/test/*.*
+!xdp/*/test/*.*

@@ -62,6 +62,43 @@ Question: what happens if you type a command that does not exist, such as `ciao`
 
 This example tracks the total bytes allocated by the kernel's memory allocator by attaching an eBPF program to the `kmem/kmalloc`tracepoint.
 
+### [Example 7](./example7/)
+
+This example attaches an eBPF program to 2 tracepoints that count sent (`net_dev_xmit`) and received (`netif_rx`) packets. 
+
+I used a `per-CPU hash map` to add something different compared to other examples. The tracepoints trigger on packet send and receive, but only update the map if the task's PID matches the target PID. The target PID is set from the Go controlplane, based on a given test binary name. 
+
+
+The test program is a C binary called `icmp_sender` (in the test directory), that sends N ICMP packets using an `AF_PACKET` socket (in my case the test is done with a veth pair, where `veth0` is one of the peer of it).
+
+**Yes, you can use `ping` instead of `icmp_sender`.**
+
+Some other notes:
+
+I chose to use only 2 tracepoints just to show the concept, but you can use more of them!
+
+For an incoming packet, the order of tracepoints triggered is as follows:
+
+* tracepoint:net:netif_rx_entry
+* tracepoint:net:netif_rx
+* tracepoint:net:netif_rx_exit
+* tracepoint:net:netif_receive_skb
+
+For an outgoing packet, the order of tracepoints triggered is as follows:
+
+* tracepoint:net:net_dev_queue
+* tracepoint:net:net_dev_start_xmit
+* tracepoint:net:net_dev_xmit
+
+Additionally, the following tracepoints should also be considered:
+
+* napi_gro_receive_entry
+* napi_gro_receive_exit
+* napi_gro_frags_entry
+* napi_gro_frags_exit
+
+However, I need to enable GRO (and possibly configure other settings), which is not the case at the moment.
+
 
 
 ### Useful stuff
