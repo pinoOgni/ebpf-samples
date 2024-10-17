@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <bpf/bpf_helpers.h>
 
+char __license[] SEC("license") = "GPL";
+
 // Define a map for ingress byte counts
 struct {
     __uint(type, BPF_MAP_TYPE_ARRAY);
@@ -19,7 +21,6 @@ struct {
     __type(value, __u32);
 } egress_map SEC(".maps");
 
-// Modified account_data function to accept a map variable
 static __inline int account_data(struct __sk_buff *skb, void *map_ptr)
 {
     __u32 *bytes;
@@ -32,18 +33,15 @@ static __inline int account_data(struct __sk_buff *skb, void *map_ptr)
     return TC_ACT_OK;
 }
 
-// Ingress program (for BPF_PROG_TYPE_SCHED_CLS)
 SEC("ingress")
 int tc_ingress(struct __sk_buff *skb)
 {
     return account_data(skb, &ingress_map);
 }
 
-// Egress program (for BPF_PROG_TYPE_SCHED_CLS)
 SEC("egress")
 int tc_egress(struct __sk_buff *skb)
 {
     return account_data(skb, &egress_map);
 }
 
-char __license[] SEC("license") = "GPL";

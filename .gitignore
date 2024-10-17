@@ -4,5 +4,7 @@ tracepoint/*/bin/
 study
 tracepoint/*/test/*
 xdp/*/test/*
+tc/*/*.o
+
 !tracepoint/*/test/*.*
 !xdp/*/test/*.*
