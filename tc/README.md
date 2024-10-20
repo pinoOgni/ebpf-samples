@@ -9,6 +9,7 @@ In this section, we will explore some programs related to TC, or Traffic Control
 * [Example 0](#example-0)
 * [Example 1](#example-1)
 * [Example 2](#example-2)
+* [Example 3](#example-3)
 * [Useful stuff](#useful-stuff)
 
 
@@ -241,6 +242,45 @@ We can now delete the testbed (the `veth1` peer in the `default ns` is automatic
 ```
 sudo ip netns del ns2
 ```
+
+
+### [Example 3](./example3/)
+
+This example is similar to example2, but it includes handling SIGINT and SIGTERM signals, ensuring that the `clsact` is automatically deleted before the program exits. We only need to delete the testbed manually.
+
+
+So, as before, these are the commands to test it:
+
+```
+sudo ip link add name veth1 type veth peer name veth2
+sudo ip netns add ns2
+sudo ip link set veth2 netns ns2
+sudo ip netns exec ns2 ip link set dev veth2 up
+sudo ip link set veth1 up
+sudo ip netns exec ns2 ip addr add 10.0.0.2/24 dev veth2
+sudo ip addr add 10.0.0.1/24 dev veth1
+
+# launch the ping command
+sudo ip netns exec ns2 ping 10.0.0.1
+
+# in another terminal
+cd ebpf-examples
+sudo ./tc/example3/bin/example3
+```
+
+We can see that that are no more echo reply packets.
+
+Now we can stop the program and then remove the `clasct` and we can see the echo reply packets:
+
+```
+sudo tc qdisc del dev veth1 clsact
+```
+
+We can now delete the testbed (the `veth1` peer in the `default ns` is automatically deleted):
+```
+sudo ip netns del ns2
+```
+
 
 ### Useful stuff
 
