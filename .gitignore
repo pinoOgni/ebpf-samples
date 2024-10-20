@@ -1,6 +1,7 @@
 todo
 xdp/*/bin/
 tracepoint/*/bin/
+tc/*/bin/
 study
 tracepoint/*/test/*
 xdp/*/test/*
