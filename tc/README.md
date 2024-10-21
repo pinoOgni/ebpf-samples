@@ -10,6 +10,7 @@ In this section, we will explore some programs related to TC, or Traffic Control
 * [Example 1](#example-1)
 * [Example 2](#example-2)
 * [Example 3](#example-3)
+* [Example 3 cBPF](#example-3-cbpf)
 * [Useful stuff](#useful-stuff)
 
 
@@ -275,6 +276,39 @@ Now we can stop the program and then remove the `clasct` and we can see the echo
 ```
 sudo tc qdisc del dev veth1 clsact
 ```
+
+We can now delete the testbed (the `veth1` peer in the `default ns` is automatically deleted):
+```
+sudo ip netns del ns2
+```
+
+### [Example 3 cBPF](./example3_cBPF/)
+
+In this example, I simply wanted to experiment with TC while using a BPF filter written as if we were using tcpdump. Basically, all ICMP traffic is dropped. To test it, we can follow the instructions from the previous example with one difference, which is the type of qdisc used.
+
+```
+sudo ip link add name veth1 type veth peer name veth2
+sudo ip netns add ns2
+sudo ip link set veth2 netns ns2
+sudo ip netns exec ns2 ip link set dev veth2 up
+sudo ip link set veth1 up
+sudo ip netns exec ns2 ip addr add 10.0.0.2/24 dev veth2
+sudo ip addr add 10.0.0.1/24 dev veth1
+
+# add manually the qdisc in ingress
+sudo tc qdisc add dev veth1 ingress
+
+# launch the ping command
+sudo ip netns exec ns2 ping 10.0.0.1
+
+# in another terminal
+cd ebpf-examples
+sudo ./tc/example3_cBPF/bin/example3_cBPF
+
+```
+We can see that the traffic is dropped.
+
+We can also check: `tc filter show dev veth1 ingress` to have more information.
 
 We can now delete the testbed (the `veth1` peer in the `default ns` is automatically deleted):
 ```
