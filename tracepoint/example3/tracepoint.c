@@ -3,7 +3,7 @@
 #include "common.h"
 
 
-char __license[] SEC("licence") = "Dual MIT/GPL";
+char __license[] SEC("license") = "Dual MIT/GPL";
 
 // Define a map to store counters for incoming and outgoing packets.
 struct bpf_map_def SEC("maps") packet_counters = {

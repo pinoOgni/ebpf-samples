@@ -3,7 +3,7 @@
 #include "bpf_endian.h"
 #include "common.h"
 
-char __license[] SEC("licence") = "Dual MIT/GPL";
+char __license[] SEC("license") = "Dual MIT/GPL";
 
 
 // Function to check if the packet is IPv4.

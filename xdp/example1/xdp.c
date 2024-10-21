@@ -3,7 +3,7 @@
 #include "bpf_endian.h"
 #include "common.h"
 
-char __license[] SEC("licence") = "Dual MIT/GPL";
+char __license[] SEC("license") = "Dual MIT/GPL";
 #define MAX_MAP_ENTRIES 16 
 
 // another way to create the counter map

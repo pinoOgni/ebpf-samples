@@ -3,7 +3,7 @@
 #include "bpf_endian.h"
 #include "common.h"
 
-char __license[] SEC("licence") = "Dual MIT/GPL";
+char __license[] SEC("license") = "Dual MIT/GPL";
 
 struct bpf_map_def SEC("maps") counter = {
     .type = BPF_MAP_TYPE_HASH,
