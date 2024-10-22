@@ -11,6 +11,7 @@ In this section, we will explore some programs related to TC, or Traffic Control
 * [Example 2](#example-2)
 * [Example 3](#example-3)
 * [Example 3 cBPF](#example-3-cbpf)
+* [Experiments](#experiments)
 * [Useful stuff](#useful-stuff)
 
 
@@ -314,6 +315,13 @@ We can now delete the testbed (the `veth1` peer in the `default ns` is automatic
 ```
 sudo ip netns del ns2
 ```
+
+
+### [Experiments](./experiments/)
+
+Here I'll add the various experiments I'm doing, both with eBPF and also incorporating other things as I study them and see things that interest me and that I want to have memory of in the future.
+
+1. [clsact_prio](./experiments/clsact_prio/): In this example, I wanted to try attaching an eBPF program to the egress path using a clsact qdisc, and a cBPF program (filter with action) using a prio qdisc, which, as far as I understand, is only for egress. For more information, I have added a [README](./experiments/clsact_prio/README.md) in the example directory.
 
 
 ### Useful stuff

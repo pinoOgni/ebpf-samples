@@ -1,11 +1,12 @@
 todo
-xdp/*/bin/
-tracepoint/*/bin/
-tc/*/bin/
+xdp/**/bin/
+tracepoint/**/bin/
+tc/**/bin/
 study
 tracepoint/*/test/*
 xdp/*/test/*
 tc/*/*.o
 
+# exceptions to the rules
 !tracepoint/*/test/*.*
 !xdp/*/test/*.*
