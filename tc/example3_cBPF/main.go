@@ -17,6 +17,14 @@ import (
 
 const vethIface = "veth1"
 
+/*
+TODO: even if I'm using the command
+sudo tc qdisc add dev veth1 ingress
+
+And I tried different values of Handle and Parent for the filter,
+it is attached both to ingress and egress. But now I'm tired so
+Future Pino will take care of it.
+*/
 func main() {
 	filterString := "icmp" // tcpdump-style filter string
 
