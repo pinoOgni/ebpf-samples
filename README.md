@@ -1,44 +1,36 @@
 # ebpf-samples
 
-This repo contains various examples to learn, explore, and experiment with eBPF and not only. I would like to go deeper both in the controlplane and dataplane part.
-
-In this repo, I will add various eBPF examples starting with simple ones and gradually add more complex examples. 
-
-Some of the eBPF code may be adapted from well-known repositories.
-
-### Repo organization
+This repo contains various examples to learn, explore, and experiment with eBPF and not only. I would like to go deeper both in the controlplane and dataplane part. 
 
 
-Here’s a translation for your GitHub repository description:
+### Repository Organization
 
----
+1. **headers**: Contains various header files used across the programs in this repository.
+2. **vmlinux**: Holds the `vmlinux` BTF file, generated with `bpftool` for compatibility with the kernel used in development.
+3. **xdp**: Includes eBPF XDP (eXpress Data Path) program examples. Each example either builds on previous ones or explores similar concepts.
+4. **tracepoint**: Features examples related to tracepoints, including syscall and networking-based examples.
+5. **tc**: Contains Traffic Control (TC) examples.
+6. **tc/experiments**: This subdirectory includes experimental TC examples that are in an exploratory or developmental phase.
 
-# Repository Overview
+### How to Use It
 
-This repository is organized as follows:
+Use the provided Makefile to build and run examples. For instance:
 
-1. **headers**: This directory contains various header files that will be used in the different programs.
-2. **vmlinux**: This folder contains the vmlinux generated with bpftool for the kernel I am working on.
-3. **xdp**: This section includes examples of eBPF XDP programs. Each example builds upon the complexity of the previous one or is similar in nature.
-4. **tracepoint**: This directory features various examples related to tracepoints, including those for syscalls, networking, and more.
-5. **tc**: This contains examples of the TC (Traffic Control) subsystem.
-
---- 
-
-Feel free to modify it as needed!
-
-
-### How to use it
-
-You can use the provided Makefile to generate, build and run the example. For example:
-```
+```sh
 make run TARGET=xdp/example1
 ```
-This command will generate the necessary file from the C code (using go generate), then it will build the binary and execute it.
 
+This command uses `go generate` to prepare files from C code, builds the binary, and executes it.
 
-### Notes 
+Attention: it will not work for all examples. Indeed there are examples with no go code!
 
-I'm using the [cilium/ebpf](https://github.com/cilium/ebpf) library. Maybe I'll add some example with libbpf. The headers used are taken from the same library and I added some modifications.
+### Notes
 
+* This repository primarily uses the [cilium/ebpf](https://github.com/cilium/ebpf) library, with some headers adapted from this library for specific needs. Future examples may incorporate `libbpf`.
+* I write these examples in my free time, after work or on weekends. There may be some mistakes, but that's the value of open source: making code accessible and open for everyone to learn from and improve.
+
+### Contributing
+
+* **Feedback and Contributions**: Contributions are welcome! If you’d like to add an example or improve an existing one, please submit a pull request or open an issue.
+* **Experimental Code**: The `tc/experiments` folder contains examples in development, so these may change frequently as I refine the code.
 
