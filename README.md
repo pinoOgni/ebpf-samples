@@ -18,16 +18,32 @@ Use the provided Makefile to build and run examples. For instance:
 
 ```sh
 make run TARGET=xdp/example1
+# or if an argument is needed
+make run TARGET=xdp/example6 ARGS=veth1
 ```
 
-This command uses `go generate` to prepare files from C code, builds the binary, and executes it.
+The `make run` command first uses `go generate` to generate files from C code and then builds the binary.
 
-Attention: it will not work for all examples. Indeed there are examples with no go code!
+**Note**: I usually use the Makefile only for building the program and then run the binary separately. For example:
+
+```sh
+make build TARGET=xdp/example1
+sudo ip netns exec ns1 ./xdp/example1/bin/example6 veth1
+```
+
+This is much more intuitive and, I think also, faster when using namespaces to test the programs.
+
+For complete documentation, please refer to the relevant **README**.
+
+**Attention**: The `Makefile` may not work for all examples, as **some do not contain Go code**!
+
 
 ### Notes
 
 * This repository primarily uses the [cilium/ebpf](https://github.com/cilium/ebpf) library, with some headers adapted from this library for specific needs. Future examples may incorporate `libbpf`.
-* I write these examples in my free time, after work or on weekends. There may be some mistakes, but that's the value of open source: making code accessible and open for everyone to learn from and improve.
+* I work on these examples in my free time, after work or on weekends. There may be some mistakes, but that’s the value of open source: making code accessible and open for everyone to learn from and improve.
+* The repository, and especially the documentation, is a work in progress.
+
 
 ### Contributing
 

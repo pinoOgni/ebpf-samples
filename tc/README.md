@@ -1,8 +1,6 @@
 # TC (Traffic Control)
 
-
 In this section, we will explore some programs related to TC, or Traffic Control, in Linux. This is a crucial subsystem that plays a significant role in network management, though it can also be quite complex and challenging to work with.
-
 
 ### Table Of Contents
 
@@ -13,7 +11,6 @@ In this section, we will explore some programs related to TC, or Traffic Control
 * [Example 3 cBPF](#example-3-cbpf)
 * [Experiments](#experiments)
 * [Useful stuff](#useful-stuff)
-
 
 
 ### [Example 0](./example0)
