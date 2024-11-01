@@ -12,6 +12,7 @@ This directory is used only for xdp examples.
 * [Example 6](#example-6)
 * [Example 6_2](#example-6_2)
 * [Example 7](#example-7)
+* [Example 8](#example-8)
 
 
 ### [Example 1](./example1/README.md)
@@ -144,3 +145,55 @@ Name: veth4, Index: 8, Type: veth
 	veth2 => 12
 	veth4 => 11
 ```
+
+### [Example 8](./example8/)
+
+This example is similar to the previous one, but it exposes some metrics using the **Prometheus go library**.
+
+Let's create the testbed using the provided script: `sudo ./tesbed.sh`.
+
+A simple and fast way to use Prometheus is as follows:
+```
+cd xdp/example8
+docker run \
+    -p 9090:9090 \
+    -v ./prometheus.yaml:/etc/prometheus/prometheus.yml \
+    prom/prometheus
+```
+The provided `prometheus.yaml` is created starting from [here](https://prometheus.io/docs/prometheus/latest/getting_started/). Note that the target is important `targets: ['10.0.0.2:9091']` and it works because I'm using the `testbed.sh` script to create a proper testbed.
+
+You can access the Prometheus graph page here [http://localhost:9090/graph](http://localhost:9090/graph) (actually also here [http://10.0.0.1:9090/graph](http://10.0.0.1:9090/graph) using the ip address of `veth1` or also 10.0.1.2 using `veth3`).
+
+Now if you go to `Status->Targets` there is a target called `example8` that is currently `DOWN`. That's because we have not yet run `example8`. Let's run it:
+```
+└─[$] <git:(main*)> sudo ip netns exec ns1 ./bin/example8
+Name: lo, Index: 1, Type: device
+Name: veth2, Index: 31, Type: veth
+Name: veth4, Index: 33, Type: veth
+2024/11/01 19:01:38 Counter eBPF map 0
+2024/11/01 19:01:38 Interface map:
+	veth4 => 0
+	lo => 0
+	veth2 => 0
+
+```
+Now if you refresh the page (after few seconds), the target `example8` is now `UP`. 
+
+The `example8` is attached to all the interfaces in the `ns1` network namespace: `lo`, `veth2` and `veth4`. 
+
+After creating traffic, for example:
+```
+sudo ip netns exec ns1  ping 127.0.0.1 # for ns1 lo
+ping 10.0.0.2 # for veth2
+sudo ip netns exec ns1 ping 10.0.0.1 # also for veth2
+ping 10.0.1.2 # for veth4
+sudo ip netns exec ns1 ping 10.0.1.1 # also for veth4
+```
+
+You can go to the Graph and see the metrics:
+* `ipv4_packets_total` (counter): it is the total number of IPv4 packets received in ingress using XDP program. For example you can use `rate(ipv4_packets_total[5m])` that computes the per-second average rate of increase of the counter over the last 5 minutes.
+![alt text](example8/rate_ipv4_packets_total.png)
+* `packet_received` (gauge): it is the number of IPv4 packets currently received in ingress by an interface using XDP program. This metric has one important label that is the interface name.
+![alt text](example8/packet_received.png)
+
+**Note**: remember that XDP operates only on the ingress path of the interface!

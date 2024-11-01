@@ -1,0 +1,9 @@
+global:
+  scrape_interval:     15s # How frequently to scrape targets by default.
+  evaluation_interval: 15s # How frequently to evaluate rules.
+  # scrape_timeout is set to the global default (10s).
+
+scrape_configs:
+  - job_name: 'example8'
+    static_configs:
+      - targets: ['10.0.0.2:9091']  # Targets to scrape from. It is in ns1 netns
