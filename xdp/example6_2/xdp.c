@@ -20,7 +20,7 @@ static __always_inline int is_ipv4(struct xdp_md *ctx) {
     // Parse the Ethernet header.
     struct ethhdr *eth = data;
     // Check if Ethernet header extends beyond packet data end.
-    if ((void *)(eth + 1 > data_end)) {
+    if ((void *)(eth + 1) > data_end) {
         return 0;
     }
     // Check if the protocol in the Ethernet header is IPv4.

@@ -27,7 +27,7 @@ In this first example I would like to add some more comments:
    - This line declares a pointer `eth` of type `struct ethhdr` and initializes it with the address of the packet data.
    - `struct ethhdr` is a structure representing the Ethernet header.
 
-4. `if ((void *)(eth + 1 > data_end)) { return 0; }`:
+4. `if ((void *)(eth + 1) > data_end) { return 0; }`:
    - This condition checks if the Ethernet header extends beyond the end of the packet data.
    - `(eth + 1)` calculates the address of the next memory location after the Ethernet header.
    - `(eth + 1 > data_end)` checks if this calculated address is greater than `data_end`, meaning it's beyond the end of the packet.
@@ -40,6 +40,6 @@ In this first example I would like to add some more comments:
 6. `if ((void *)(ip + 1) > data_end) { return 0; }`:
    - This condition checks if the IP header extends beyond the end of the packet data.
    - `(ip + 1)` calculates the address of the next memory location after the IP header.
-   - `(ip + 1 > data_end)` checks if this calculated address is greater than `data_end`, meaning it's beyond the end of the packet.
+   - `(ip + 1) > data_end)` checks if this calculated address is greater than `data_end`, meaning it's beyond the end of the packet.
    - If the condition is true, it means the IP header extends beyond the packet data, indicating a malformed packet, so it returns `0` to indicate failure.
 

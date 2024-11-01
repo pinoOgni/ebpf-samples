@@ -23,7 +23,7 @@ static __always_inline int is_ipv6(struct xdp_md *ctx) {
         void *data = (void*)(long)ctx->data;
 
         struct ethhdr *eth = data;
-        if ((void *)(eth + 1 > data_end)) {
+        if ((void *)(eth + 1) > data_end) {
             return 0;
         }
         if (eth->h_proto != bpf_htons(ETH_P_IP6)) {
