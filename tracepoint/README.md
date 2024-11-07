@@ -10,9 +10,7 @@ This directory contains tracepoint examples.
 * [Example 4](#example-4)
 * [Example 5](#example-5)
 * [Example 6](#example-6)
-
-
-
+* [Example 7](#example-7)
 * [Useful Stuff](#useful-stuff)
 
 ### [Example 1](./example1/)

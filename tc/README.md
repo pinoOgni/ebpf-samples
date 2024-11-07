@@ -324,6 +324,28 @@ Here I'll add the various experiments I'm doing, both with eBPF and also incorpo
 
 ### Useful stuff
 
+This is a list of links to documents, videos, etc. that may be useful. Personally I haven't paid attention to them all so I might remove some in the future:
 * [This](https://patchwork.ozlabs.org/project/netdev/patch/61198814638d88ce3555dbecf8ef875523b95743.1452197856.git.daniel@iogearbox.net/) is interesting and it talks about the `clsact`. 
 * https://github.com/torvalds/linux/blob/master/include/uapi/linux/pkt_cls.h
 * [Cilium guide for TC](https://docs.cilium.io/en/latest/bpf/progtypes/#tc-traffic-control)
+* [QoS in Linux with TC and Filters](https://www.linux.com/training-tutorials/qos-linux-tc-and-filters/)
+* [Linux tc and eBPF. Daniel Borkmann](https://archive.fosdem.org/2016/schedule/event/ebpf/attachments/slides/1159/export/events/attachments/ebpf/slides/1159/ebpf.pdf)
+* [Linux Advanced Routing & Traffic Control HOWTO](https://tldp.org/HOWTO/Adv-Routing-HOWTO/index.html)
+* [florianl/go-tc Github](https://github.com/florianl/go-tc/tree/main)
+* [tc(8) — Linux manual page](https://man7.org/linux/man-pages/man8/tc.8.html)
+* [tc-bpf(8) — Linux manual page](https://man7.org/linux/man-pages/man8/tc-bpf.8.html)
+* [eBPF Tutorial by Example 20: tc Traffic Control](https://eunomia.dev/tutorials/20-tc/)
+* [ebpf docs: Program type BPF_PROG_TYPE_SCHED_CLS](https://docs.ebpf.io/linux/program-type/BPF_PROG_TYPE_SCHED_CLS/)
+* [net, sched: add clsact qdisc](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1f211a1b929c804100e138c5d3d656992cfd5622)
+* [ Netdev 0.1 - Linux Traffic Control Classifier-Action Subsystem Architecture ](https://www.youtube.com/watch?v=cyeJYjZHv5M)
+* [ Understanding the Concepts of Traffic Control ](https://www.youtube.com/watch?v=s6Ays3NNxig)
+* [Understanding tc “direct action” mode for BPF. Quentin Monnet](https://qmonnet.github.io/whirl-offload/2020/04/11/tc-bpf-direct-action/)
+* [tc-bpf behavior](https://gist.github.com/anfredette/732eeb0fe519c8928d6d9c190728f7b5)
+* [eBPF Qdisc: A Generic Building Block for Traffic Control](https://netdevconf.org/0x17/docs/netdev-0x17-paper37-talk-slides/eBPF%20Qdisc.pdf)
+
+
+
+
+
+
+
