@@ -5,12 +5,13 @@ This repo contains various examples to learn, explore, and experiment with eBPF 
 
 ### Repository Organization
 
-1. **headers**: Contains various header files used across the programs in this repository.
-2. **vmlinux**: Holds the `vmlinux` BTF file, generated with `bpftool` for compatibility with the kernel used in development.
-3. **xdp**: Includes eBPF XDP (eXpress Data Path) program examples. Each example either builds on previous ones or explores similar concepts.
-4. **tracepoint**: Features examples related to tracepoints, including syscall and networking-based examples.
-5. **tc**: Contains Traffic Control (TC) examples.
-6. **tc/experiments**: This subdirectory includes experimental TC examples that are in an exploratory or developmental phase.
+1. [**headers**](./headers/): Contains various header files used across the programs in this repository.
+2. [**vmlinux**](./vmlinux/): Holds the `vmlinux` BTF file, generated with `bpftool` for compatibility with the kernel used in development.
+3. [**xdp**](./xdp/README.md): Includes eBPF XDP (eXpress Data Path) program examples. Each example either builds on previous ones or explores similar concepts.
+4. [**tracepoint**](./tracepoint/README.md): Features examples related to tracepoints, including syscall and networking-based examples.
+5. [**tc**](./tc/README.md): Contains Traffic Control (TC) examples.
+6. [**tc/experiments**](./tc/experiments/): This subdirectory includes experimental TC examples that are in an exploratory or developmental phase.
+7. [**program_test**](./program_test/README.md): Here there are some eBPF examples that use the `BPF_PROG_TEST_RUN` (in newer kernel versions, `BPF_PROG_RUN`). I didn't know it and once I discovered it I wanted to try it. It's cool!
 
 ### How to Use It
 
