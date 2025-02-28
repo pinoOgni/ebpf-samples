@@ -58,7 +58,7 @@ SEC("tc_ingress")
 int tc_ingress_f(struct __sk_buff *skb)
 {
     if (is_ipv4_icmp(skb)) {
-        bpf_printk("I'm an icmp packet YEEEEEEAH!"); 
+        bpf_printk("An ICMP packet has been received."); 
         __u32 *counter;
         __u32 mapKey = 0;
         // Lookup the appropriate map based on the passed map pointer
