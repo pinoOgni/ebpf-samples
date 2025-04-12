@@ -10,7 +10,7 @@ This repo contains various examples to learn, explore, and experiment with eBPF 
 3. [**xdp**](./xdp/README.md): Includes eBPF XDP (eXpress Data Path) program examples. Each example either builds on previous ones or explores similar concepts.
 4. [**tracepoint**](./tracepoint/README.md): Features examples related to tracepoints, including syscall and networking-based examples.
 5. [**tc**](./tc/README.md): Contains Traffic Control (TC) examples.
-6. [**tc/experiments**](./tc/experiments/): This subdirectory includes experimental TC examples that are in an exploratory or developmental phase.
+6. [**tc-experiments**](./tc-experiments/): This directory includes experimental TC examples that are in an exploratory or developmental phase.
 7. [**program_test**](./program_test/README.md): Here there are some eBPF examples that use the `BPF_PROG_TEST_RUN` (in newer kernel versions, `BPF_PROG_RUN`). I didn't know it and once I discovered it I wanted to try it. It's cool!
 
 ### How to Use It
@@ -20,7 +20,7 @@ Use the provided Makefile to build and run examples. For instance:
 ```sh
 make run TARGET=xdp/example1
 # or if an argument is needed
-make run TARGET=xdp/example6 ARGS=veth1
+make run TARGET=xdp/example1 ARGS=veth1
 ```
 
 The `make run` command first uses `go generate` to generate files from C code and then builds the binary.
@@ -29,7 +29,7 @@ The `make run` command first uses `go generate` to generate files from C code an
 
 ```sh
 make build TARGET=xdp/example1
-sudo ip netns exec ns1 ./xdp/example1/bin/example6 veth1
+sudo ip netns exec ns1 ./xdp/example1/bin/example1 veth1
 ```
 
 This is much more intuitive and, I think also, faster when using namespaces to test the programs.
@@ -49,5 +49,5 @@ For complete documentation, please refer to the relevant **README**.
 ### Contributing
 
 * **Feedback and Contributions**: Contributions are welcome! If you’d like to add an example or improve an existing one, please submit a pull request or open an issue.
-* **Experimental Code**: The `tc/experiments` folder contains examples in development, so these may change frequently as I refine the code.
+* **Experimental Code**: The `tc-experiments` folder contains examples in development, so these may change frequently as I refine the code and learn new things.
 
