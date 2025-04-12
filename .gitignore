@@ -7,8 +7,6 @@ program_test/**/bin/
 study
 tracepoint/*/test/*
 xdp/*/test/*
-tc/*/*.o
-tc-experiments/*/*.o
 test_variables/bin/
 
 # exceptions to the rules
