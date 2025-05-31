@@ -12,6 +12,7 @@ This repo contains various examples to learn, explore, and experiment with eBPF 
 5. [**tc**](./tc/README.md): Contains Traffic Control (TC) examples.
 6. [**tc-experiments**](./tc-experiments/): This directory includes experimental TC examples that are in an exploratory or developmental phase.
 7. [**program_test**](./program_test/README.md): Here there are some eBPF examples that use the `BPF_PROG_TEST_RUN` (in newer kernel versions, `BPF_PROG_RUN`). I didn't know it and once I discovered it I wanted to try it. It's cool!
+8. [**program_insights**](./program_insights/): Section dedicated to see how to inspect an eBPF program in order to understand more about eBPF.
 
 ### How to Use It
 

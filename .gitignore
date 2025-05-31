@@ -8,6 +8,7 @@ study
 tracepoint/*/test/*
 xdp/*/test/*
 test_variables/bin/
+program_insights/**/bin/
 
 # exceptions to the rules
 # The "test" folder contains both source code files that should be committed and a binary that should not be committed.
